@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0a0a">
+  <title>Rentaly - Premium Car Rental</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bodoni+Moda:wght@400;500;600;700&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="fleet.css">
+</head>
+<body>
+
+  <!-- Inline SVG sprite (no icon library needed) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><polyline points="22,6 12,13 2,6"/></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+      <symbol id="i-chevron-left" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></symbol>
+      <symbol id="i-chevron-right" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></symbol>
+      <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></symbol>
+
+      <!-- fleet section icons -->
+      <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+      <symbol id="i-car" viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></symbol>
+      <symbol id="i-car-front" viewBox="0 0 24 24"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8"/><path d="M7 14h.01"/><path d="M17 14h.01"/><rect width="18" height="8" x="3" y="10" rx="2"/><path d="M5 18v2"/><path d="M19 18v2"/></symbol>
+      <symbol id="i-suv" viewBox="0 0 24 24"><path d="M5 17H3a1 1 0 0 1-1-1v-4.5l2-4.5a1 1 0 0 1 .9-.6h10.4a1 1 0 0 1 .8.4l3.4 4.7H21a1 1 0 0 1 1 1V16a1 1 0 0 1-1 1h-2"/><path d="M9 17h6"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M4 11.5h14"/></symbol>
+      <symbol id="i-crown" viewBox="0 0 24 24"><path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z"/><path d="M5 21h14"/></symbol>
+      <symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
+      <symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+      <symbol id="i-engine" viewBox="0 0 24 24"><path d="M4 10v5"/><path d="M2 12.5h2"/><path d="M6 8h3V6h6v2h2l2 2h2v6h-2l-2 2H9l-3-3z"/><path d="M11 12h4"/></symbol>
+      <symbol id="i-gauge" viewBox="0 0 24 24"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></symbol>
+      <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="9" r=".6"/><circle cx="15" cy="9" r=".6"/><circle cx="9" cy="15" r=".6"/><circle cx="15" cy="15" r=".6"/><path d="M9 9v6M15 9v6M9 12h6"/></symbol>
+      <symbol id="i-shield-check" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+      <symbol id="i-support" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><text x="12" y="14.6" text-anchor="middle" font-size="7.2" font-weight="800" font-family="Manrope, sans-serif" fill="currentColor" stroke="none">24/7</text></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></symbol>
+
+      <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M14 8V6.5c0-.7.2-1 1.1-1H17V2h-2.6C11.3 2 10 3.7 10 6.2V8H7.5v3.5H10V22h4V11.5h2.7L17 8h-3z"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></symbol>
+      <symbol id="i-youtube" viewBox="0 0 24 24"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2C.5 9.1.5 12 .5 12s0 2.9.5 4.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-4.8.5-4.8s0-2.9-.5-4.8zM9.7 15.3V8.7l5.8 3.3-5.8 3.3z"/></symbol>
+      <symbol id="i-pinterest" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12c0 4.2 2.6 7.8 6.3 9.2-.1-.8-.2-2 0-2.9l1.1-4.6s-.3-.6-.3-1.4c0-1.3.8-2.3 1.7-2.3.8 0 1.2.6 1.2 1.3 0 .8-.5 2-.8 3.1-.2.9.5 1.7 1.4 1.7 1.7 0 3-1.8 3-4.4 0-2.3-1.7-3.9-4-3.9-2.7 0-4.3 2-4.3 4.1 0 .8.3 1.7.7 2.2.1.1.1.2.1.3l-.3 1.1c0 .2-.1.2-.3.1-1.2-.6-2-2.4-2-3.8 0-3.1 2.2-5.9 6.4-5.9 3.4 0 6 2.4 6 5.6 0 3.3-2.1 6-5 6-1 0-1.9-.5-2.2-1.1l-.6 2.3c-.2.8-.8 1.9-1.2 2.5.9.3 1.9.4 2.9.4 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></symbol>
+      <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- ========== HEADER (TOP BAR + NAVBAR) - stays above the sticky hero ========== -->
+  <header class="rt-header">
+
+  <!-- ========== TOP BAR ========== -->
+  <div class="rt-topbar">
+    <div class="container">
+      <div class="rt-topbar__inner">
+        <ul class="rt-topbar__info">
+          <li>
+            <svg class="rt-ic" aria-hidden="true"><use href="#i-phone"/></svg>
+            <a href="tel:+2083339296">+208 333 9296</a>
+          </li>
+          <li class="d-none d-md-flex">
+            <svg class="rt-ic" aria-hidden="true"><use href="#i-mail"/></svg>
+            <a href="mailto:contact@rentaly.com">contact@rentaly.com</a>
+          </li>
+          <li class="d-none d-lg-flex">
+            <svg class="rt-ic" aria-hidden="true"><use href="#i-clock"/></svg>
+            <span>Mon - Fri 08.00 - 18.00</span>
+          </li>
+        </ul>
+
+        <ul class="rt-topbar__social">
+          <li><a href="#" aria-label="Facebook"><svg class="rt-ic rt-ic--fill" aria-hidden="true"><use href="#i-facebook"/></svg></a></li>
+          <li><a href="#" aria-label="X / Twitter"><svg class="rt-ic rt-ic--fill" aria-hidden="true"><use href="#i-x"/></svg></a></li>
+          <li><a href="#" aria-label="YouTube"><svg class="rt-ic rt-ic--fill" aria-hidden="true"><use href="#i-youtube"/></svg></a></li>
+          <li><a href="#" aria-label="Pinterest"><svg class="rt-ic rt-ic--fill" aria-hidden="true"><use href="#i-pinterest"/></svg></a></li>
+          <li><a href="#" aria-label="Instagram"><svg class="rt-ic rt-ic--fill" aria-hidden="true"><use href="#i-instagram"/></svg></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="rt-nav navbar-expand-lg" aria-label="Main navigation">
+      <div class="container">
+        <div class="rt-nav__bar">
+
+          <!-- Logo: replace this block with your own logo <img> -->
+          <a class="rt-logo" href="index.html" aria-label="Rentaly home">
+            <svg class="rt-logo__swoosh" viewBox="0 0 160 46" aria-hidden="true">
+              <path d="M4 38C20 20 50 8 95 8c25 0 43 6 55 14-25-6-50-4-70 2C55 31 30 36 4 38z" fill="currentColor"/>
+            </svg>
+            <span class="rt-logo__text">rentaly</span>
+          </a>
+
+          <button class="navbar-toggler rt-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#rtNav" aria-controls="rtNav" aria-expanded="false" aria-label="Toggle navigation">
+            <svg class="rt-ic" aria-hidden="true"><use href="#i-menu"/></svg>
+          </button>
+
+          <div class="collapse navbar-collapse" id="rtNav">
+
+            <div class="rt-nav__links">
+              <span class="rt-nav__pill" aria-hidden="true"></span>
+              <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="faq.html">Events</a></li>
+                <li class="nav-item"><a class="nav-link" href="faq.html">Fleet</a></li>
+                <li class="nav-item"><a class="nav-link" href="bookings.html">Gallery</a></li>
+                <li class="nav-item"><a class="nav-link" href="bookings.html">Bookings</a></li>
+              
+              </ul>
+            </div>
+
+            <a class="rt-btn-contact" href="contact.html">
+              <span class="rt-btn-contact__label">Contact Us</span>
+              <span class="rt-btn-contact__icon"><svg class="rt-ic" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span>
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  </header>
+
+  <!-- ========== HERO (sticky - next section slides over it) ========== -->
+  <section class="rt-hero">
+
+    <!-- Carousel -->
+    <div id="rtHeroCarousel" class="carousel slide carousel-fade rt-carousel" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="false">
+
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#rtHeroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#rtHeroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#rtHeroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+
+      <div class="carousel-inner">
+
+        <!-- Slide 1 : apni image ka path yahan change karo -->
+        <div class="carousel-item active rt-slide" style="background-image:url('herobg1.webp')">
+          <div class="rt-slide__content">
+            <h1 class="rt-slide__title">Premium Cars</h1>
+            <p class="rt-slide__text">Discover the world in unparalleled comfort and style.</p>
+            <a href="#" class="rt-btn-discover">Discover</a>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="carousel-item rt-slide" style="background-image:url('herobg2.webp')">
+          <div class="rt-slide__content">
+            <h1 class="rt-slide__title">Luxury Cars</h1>
+            <p class="rt-slide__text">Arrive in elegance with a fleet built for every occasion.</p>
+            <a href="#" class="rt-btn-discover">Discover</a>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="carousel-item rt-slide" style="background-image:url('herobg3.webp')">
+          <div class="rt-slide__content">
+            <h1 class="rt-slide__title">Family Cars</h1>
+            <p class="rt-slide__text">Spacious, safe and ready for every road trip.</p>
+            <a href="#" class="rt-btn-discover">Discover</a>
+          </div>
+        </div>
+
+      </div>
+
+      <button class="rt-ctrl rt-ctrl--prev" type="button" data-bs-target="#rtHeroCarousel" data-bs-slide="prev" aria-label="Previous slide">
+        <svg class="rt-ic" aria-hidden="true"><use href="#i-chevron-left"/></svg>
+      </button>
+      <button class="rt-ctrl rt-ctrl--next" type="button" data-bs-target="#rtHeroCarousel" data-bs-slide="next" aria-label="Next slide">
+        <svg class="rt-ic" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+      </button>
+    </div>
+
+    <!-- dark shade that fades in while the next section covers the hero -->
+    <div class="rt-hero__shade" aria-hidden="true"></div>
+
+  </section>
+
+  <!-- ========== OUR VEHICLE FLEET ==========
+       "rt-cover" = slides over the sticky hero (must stay directly after the hero section).
+       Images: section background -> images/fleet-bg.jpg
+               car photos          -> images/fleet/*.jpg
+               brand logos         -> images/brands/*.png
+       Names, specs and prices below are sample data - edit them. -->
+  <section class="rt-cover rt-fleet" id="fleet" aria-labelledby="rtFleetTitle" style="background-image:url('fleetbg.webp')">
+
+  <div class="container rt-fleet__inner">
+
+    <!-- Heading -->
+
+    <div class="rt-fleet__head">
+
+      <p class="rt-fleet__eyebrow">Premium Car Rental Service</p>
+
+      <h2 class="rt-fleet__title" id="rtFleetTitle">Our <span>Vehicle Fleet</span></h2>
+
+      <p class="rt-fleet__lead">Choose from our handpicked collection of premium vehicles, crafted for comfort, performance and unforgettable journeys.</p>
+
+      <span class="rt-fleet__rule" aria-hidden="true"></span>
+
+    </div>
+
+    <p class="rt-fleet__script" aria-hidden="true">Luxury<br>Drives<br>Beyond Limits</p>
+
+
+    <!-- Filter tabs -->
+
+    <div class="rt-fleet__filters-wrap">
+
+      <div class="rt-fleet__filters" role="group" aria-label="Filter vehicles by type">
+
+        <button class="rt-fleet__filter" type="button" data-filter="all" aria-pressed="true">
+          <span class="rt-fleet__filter-ic"><svg class="rt-ic" aria-hidden="true"><use href="#i-car-front"/></svg></span>All Vehicles
+        </button>
+
+        <button class="rt-fleet__filter" type="button" data-filter="sports" aria-pressed="false">
+          <span class="rt-fleet__filter-ic"><svg class="rt-ic" aria-hidden="true"><use href="#i-car"/></svg></span>Sports Cars
+        </button>
+
+        <button class="rt-fleet__filter" type="button" data-filter="suv" aria-pressed="false">
+          <span class="rt-fleet__filter-ic"><svg class="rt-ic" aria-hidden="true"><use href="#i-suv"/></svg></span>SUVs
+        </button>
+
+        <button class="rt-fleet__filter" type="button" data-filter="luxury" aria-pressed="false">
+          <span class="rt-fleet__filter-ic"><svg class="rt-ic" aria-hidden="true"><use href="#i-crown"/></svg></span>Luxury Sedans
+        </button>
+
+        <button class="rt-fleet__filter" type="button" data-filter="truck" aria-pressed="false">
+          <span class="rt-fleet__filter-ic"><svg class="rt-ic" aria-hidden="true"><use href="#i-truck"/></svg></span>Trucks
+        </button>
+
+        <button class="rt-fleet__filter" type="button" data-filter="hatchback" aria-pressed="false">
+          <span class="rt-fleet__filter-ic"><svg class="rt-ic" aria-hidden="true"><use href="#i-car-front"/></svg></span>Hatchbacks
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- Cards slider -->
+
+    <div class="rt-fleet__stage">
+
+      <button class="rt-fleet__arrow rt-fleet__arrow--prev" type="button" aria-label="Previous vehicles">
+        <svg class="rt-ic" aria-hidden="true"><use href="#i-chevron-left"/></svg>
+      </button>
+
+
+      <div class="rt-fleet__track" tabindex="0" aria-label="Vehicle list">
+
+
+        <!-- Card 1 -->
+
+        <article class="rt-car" data-category="sports">
+
+          <div class="rt-car__media">
+            <img src="https://images.unsplash.com/photo-1778959686627-4b77ad253447?auto=format&fit=crop&w=1200&q=85" alt="Ferrari Enzo">
+
+            <span class="rt-car__badge"><svg class="rt-ic" aria-hidden="true"><use href="#i-flame"/></svg>Popular</span>
+
+            <button class="rt-car__like" type="button" aria-pressed="false" aria-label="Save Ferrari Enzo"><svg class="rt-ic" aria-hidden="true"><use href="#i-heart"/></svg></button>
+          </div>
+
+          <div class="rt-car__body">
+
+            <div class="rt-car__id">
+
+              <span class="rt-car__brand"><img src="images/brands/ferrari.png" alt="Ferrari"></span>
+
+              <div>
+                <h3 class="rt-car__name">Ferrari Enzo</h3>
+                <p class="rt-car__type">Sports Car</p>
+              </div>
+
+            </div>
+
+            <ul class="rt-car__specs">
+              <li><svg class="rt-ic" aria-hidden="true"><use href="#i-engine"/></svg><span><strong>6.0L V12</strong><small>Engine</small></span></li>
+              <li><svg class="rt-ic" aria-hidden="true"><use href="#i-gauge"/></svg><span><strong>3.2s</strong><small>0–100 km/h</small></span></li>
+              <li><svg class="rt-ic" aria-hidden="true"><use href="#i-gear"/></svg><span><strong>Manual</strong><small>Transmission</small></span></li>
+            </ul>
+
+            <div class="rt-car__foot">
+
+              <div>
+                <span class="rt-car__from">Starting from</span>
+                <p class="rt-car__price"><strong>$167</strong><span>/day</span></p>
+              </div>
+
+              <a class="rt-car__btn" href="bookings.html?car=ferrari-enzo">Rent Now <svg class="rt-ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- Card 2 -->
+
+        <article class="rt-car" data-category="truck">
+
+          <div class="rt-car__media">
+            <img src="https://images.unsplash.com/photo-1746939802190-842f8daee728?auto=format&fit=crop&w=1200&q=85" alt="Ford Raptor">
+
+            <span class="rt-car__badge"><svg class="rt-ic" aria-hidden="true"><use href="#i-flame"/></svg>Popular</span>
+
+            <button class="rt-car__like" type="button" aria-pressed="false" aria-label="Save Ford Raptor"><svg class="rt-ic" aria-hidden="true"><use href="#i-heart"/></svg></button>
+          </div>
+
+          <div class="rt-car__body">
+
+            <div class="rt-car__id">
+
+              <span class="rt-car__brand"><img src="images/brands/ford.png" alt="Ford"></span>
+
+              <div>
+                <h3 class="rt-car__name">Ford Raptor</h3>
+                <p class="rt-car__type">Truck</p>
+              </div>
+
+            </div>
+
+            <ul class="rt-car__specs">
+              <li><svg class="rt-ic" aria-hidden="true"><use href="#i-engine"/></svg><span><strong>3.5L V6</strong><small>Engine</small></span></li>
+              <li><svg class="rt-ic" aria-hidden="true"><use href="#i-gauge"/></svg><span><strong>6.1s</strong><small>0–100 km/h</small></span></li>
+              <li><svg class="rt-ic" aria-hidden="true"><use href="#i-gear"/></svg><span><strong>Automatic</strong><small>Transmission</small></span></li>
+            </ul>
+
+            <div class="rt-car__foot">
+
+              <div>
+                <span class="rt-car__from">Starting from</span>
+                <p class="rt-car__price"><strong>$147</strong><span>/day</span></p>
+              </div>
+
+              <a class="rt-car__btn" href="bookings.html?car=ford-raptor">Rent Now <svg class="rt-ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- Card 3 -->
+
+        <article class="rt-car" data-category="hatchback">
+
+          <div class="rt-car__media">
+            <img src="https://images.unsplash.com/photo-1566405327330-edd40c598785?auto=format&fit=crop&w=1200&q=85" alt="Mini Cooper">
+
+            <span class="rt-car__badge"><svg class="rt-ic" aria-hidden="true"><use href="#i-flame"/></svg>Popular</span>
+
+            <button class="rt-car__like" type="button" aria-pressed="false" aria-label="Save Mini Cooper"><svg class="rt-ic" aria-hidden="true"><use href="#i-heart"/></svg></button>
+          </div>
+
+          <div class="rt-car__body">
+
+            <div class="rt-car__id">
+
+              <span class="rt-car__brand"><img src="images/brands/mini.png" alt="Mini"></span>
+
+              <div>
+                <h3 class="rt-car__name">Mini Cooper</h3>
+                <p class="rt-car__type">Hatchback</p>
+              </div>
+
+            </div>
+
+            <ul class="rt-car__specs">
+              <li><svg class="rt-ic" aria-hidden="true"><use href="#i-engine"/></svg><span><strong>1.5L Turbo</strong><small>Engine</small></span></li>
+              <li><svg class="rt-ic" aria-hidden="true"><use href="#i-gauge"/></svg><span><strong>7.1s</strong><small>0–100 km/h</small></span></li>
+              <li><svg class="rt-ic" aria-hidden="true"><use href="#i-gear"/></svg><span><strong>Automatic</strong><small>Transmission</small></span></li>
+            </ul>
+
+            <div class="rt-car__foot">
+
+              <div>
+                <span class="rt-car__from">Starting from</span>
+                <p class="rt-car__price"><strong>$238</strong><span>/day</span></p>
+              </div>
+
+              <a class="rt-car__btn" href="bookings.html?car=mini-cooper">Rent Now <svg class="rt-ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- Card 4 (sample - SUV) -->
+
+        <article class="rt-car" data-category="suv">
+
+          <div class="rt-car__media">
+            <img src="https://images.unsplash.com/photo-1681785854732-6efba41a1b56?auto=format&fit=crop&w=1200&q=85" alt="Range Rover Sport">
+
+            <button class="rt-car__like" type="button" aria-pressed="false" aria-label="Save Range Rover Sport"><svg class="rt-ic" aria-hidden="true"><use href="#i-heart"/></svg></button>
+          </div>
+
+          <div class="rt-car__body">
+
+            <div class="rt-car__id">
+
+              <span class="rt-car__brand"><img src="images/brands/land-rover.png" alt="Land Rover"></span>
+
+              <div>
+                <h3 class="rt-car__name">Range Rover Sport</h3>
+                <p class="rt-car__type">SUV</p>
+              </div>
+
+            </div>
+
+            <ul class="rt-car__specs">
+              <li><svg class="rt-ic" aria-hidden="true"><use href="#i-engine"/></svg><span><strong>3.0L I6</strong><small>Engine</small></span></li>
+              <li><svg class="rt-ic" aria-hidden="true"><use href="#i-gauge"/></svg><span><strong>5.8s</strong><small>0–100 km/h</small></span></li>
+              <li><svg class="rt-ic" aria-hidden="true"><use href="#i-gear"/></svg><span><strong>Automatic</strong><small>Transmission</small></span></li>
+            </ul>
+
+            <div class="rt-car__foot">
+
+              <div>
+                <span class="rt-car__from">Starting from</span>
+                <p class="rt-car__price"><strong>$189</strong><span>/day</span></p>
+              </div>
+
+              <a class="rt-car__btn" href="bookings.html?car=range-rover-sport">Rent Now <svg class="rt-ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- Card 5 (sample - Luxury Sedan) -->
+
+        <article class="rt-car" data-category="luxury">
+
+          <div class="rt-car__media">
+            <img src="https://images.unsplash.com/photo-1764089859662-7b4773dff85b?auto=format&fit=crop&w=1200&q=85" alt="Mercedes S-Class">
+
+            <button class="rt-car__like" type="button" aria-pressed="false" aria-label="Save Mercedes S-Class"><svg class="rt-ic" aria-hidden="true"><use href="#i-heart"/></svg></button>
+          </div>
+
+          <div class="rt-car__body">
+
+            <div class="rt-car__id">
+
+              <span class="rt-car__brand"><img src="images/brands/mercedes.png" alt="Mercedes-Benz"></span>
+
+              <div>
+                <h3 class="rt-car__name">Mercedes S-Class</h3>
+                <p class="rt-car__type">Luxury Sedan</p>
+              </div>
+
+            </div>
+
+            <ul class="rt-car__specs">
+              <li><svg class="rt-ic" aria-hidden="true"><use href="#i-engine"/></svg><span><strong>3.0L I6</strong><small>Engine</small></span></li>
+              <li><svg class="rt-ic" aria-hidden="true"><use href="#i-gauge"/></svg><span><strong>5.1s</strong><small>0–100 km/h</small></span></li>
+              <li><svg class="rt-ic" aria-hidden="true"><use href="#i-gear"/></svg><span><strong>Automatic</strong><small>Transmission</small></span></li>
+            </ul>
+
+            <div class="rt-car__foot">
+
+              <div>
+                <span class="rt-car__from">Starting from</span>
+                <p class="rt-car__price"><strong>$265</strong><span>/day</span></p>
+              </div>
+
+              <a class="rt-car__btn" href="bookings.html?car=mercedes-s-class">Rent Now <svg class="rt-ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+      </div>
+
+
+      <button class="rt-fleet__arrow rt-fleet__arrow--next" type="button" aria-label="Next vehicles">
+        <svg class="rt-ic" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+      </button>
+
+
+      <p class="rt-fleet__empty" hidden>No vehicles in this category yet.</p>
+
+    </div>
+
+
+    <!-- Perks bar -->
+
+    <div class="rt-fleet__features">
+
+      <ul class="rt-fleet__perks">
+
+        <li>
+          <svg class="rt-ic" aria-hidden="true"><use href="#i-shield-check"/></svg>
+          <div><strong>Fully Insured Vehicles</strong><span>Drive with peace of mind</span></div>
+        </li>
+
+        <li>
+          <svg class="rt-ic" aria-hidden="true"><use href="#i-support"/></svg>
+          <div><strong>24/7 Roadside Support</strong><span>We're always here for you</span></div>
+        </li>
+
+        <li>
+          <svg class="rt-ic" aria-hidden="true"><use href="#i-shield-check"/></svg>
+          <div><strong>Flexible Rental Plans</strong><span>Daily, weekly &amp; monthly</span></div>
+        </li>
+
+        <li>
+          <svg class="rt-ic" aria-hidden="true"><use href="#i-star"/></svg>
+          <div><strong>Premium Quality Fleet</strong><span>Top brands &amp; latest models</span></div>
+        </li>
+
+      </ul>
+
+
+      <a class="rt-fleet__all" href="cars.html">View All Vehicles <svg class="rt-ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+
+
+      <svg class="rt-fleet__curve" viewBox="0 0 340 100" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 100 C 40 100, 52 8, 120 8 L 340 8" fill="none" stroke="currentColor" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+      </svg>
+
+    </div>
+
+  </div>
+
+</section>
+<!-- ================= SECTION START ================= -->
+<section class="wcu" id="why-choose-us" aria-labelledby="wcuTitle">
+  <div class="wcu__inner">
+
+    <header class="wcu__head">
+      <p class="wcu__eyebrow"><span>Our Features</span></p>
+      <h2 class="wcu__title" id="wcuTitle">Why <em>Choose Us?</em></h2>
+      <p class="wcu__lead">Experience premium service, unmatched reliability, and complete peace of mind with every ride.</p>
+    </header>
+
+    <div class="wcu__grid">
+
+      <!-- Center: CAR IMAGE
+           size / position badalni ho to why-choose-us.css me .wcu ke andar
+           --wcu-car-scale aur --wcu-car-y change karo -->
+      <div class="wcu__car">
+        <div class="wcu__slot">
+          <img src="image-removebg-preview (1).png" alt="Premium rental car">
+        </div>
+      </div>
+
+      <!-- Left top -->
+      <article class="wcu-card wcu-card--l1">
+        <span class="wcu-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+        </span>
+        <div class="wcu-card__body">
+          <h3 class="wcu-card__title">First Class Services</h3>
+          <p class="wcu-card__text">Where luxury meets exceptional care, creating unforgettable moments and exceeding your every expectation.</p>
+        </div>
+      </article>
+
+      <!-- Left bottom -->
+      <article class="wcu-card wcu-card--l2">
+        <span class="wcu-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M9.5 3 3 21"/><path d="M14.5 3 21 21"/><path d="M12 4.5v3"/><path d="M12 10.5v3"/><path d="M12 16.5v4"/></svg>
+        </span>
+        <div class="wcu-card__body">
+          <h3 class="wcu-card__title">24/7 Road Assistance</h3>
+          <p class="wcu-card__text">Reliable support when you need it most, keeping you on the move with confidence and peace of mind.</p>
+        </div>
+      </article>
+
+      <!-- Right top -->
+      <article class="wcu-card wcu-card--r1">
+        <span class="wcu-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        </span>
+        <div class="wcu-card__body">
+          <h3 class="wcu-card__title">Quality at Minimum Expense</h3>
+          <p class="wcu-card__text">Unlocking affordable brilliance with elevating quality while minimizing costs for maximum value.</p>
+        </div>
+      </article>
+
+      <!-- Right bottom -->
+      <article class="wcu-card wcu-card--r2">
+        <span class="wcu-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+        </span>
+        <div class="wcu-card__body">
+          <h3 class="wcu-card__title">Free Pick-Up &amp; Drop-Off</h3>
+          <p class="wcu-card__text">Enjoy free pickup and drop-off services, adding an extra layer of ease to your car rental experience.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+<!-- ================= SECTION START ================= -->
+<section class="fq" id="faq" aria-labelledby="fqTitle">
+  <div class="fq__inner">
+
+    <!-- Image (left) - apni image ka path yahan -->
+    <div class="fq__media">
+      <img src="faqimg.webp" alt="Car driving across a bridge">
+    </div>
+
+    <!-- Content (right) -->
+    <div class="fq__content">
+      <h2 class="fq__title" id="fqTitle">FAQ</h2>
+      <p class="fq__lead">Quick answers to the questions our customers ask most before booking. Can't find what you need? Our team is just a message away.</p>
+
+      <div class="fq__list">
+
+        <!-- Item 1 (starts open) -->
+        <div class="fq-item is-open">
+          <h3 class="fq-item__q">
+            <button class="fq-item__btn" type="button" id="fq-q1" aria-expanded="true" aria-controls="fq-a1">
+              <span>What's included in the quoted daily rate?</span>
+              <svg class="fq-item__chev" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+          </h3>
+          <div class="fq-item__panel" id="fq-a1" role="region" aria-labelledby="fq-q1">
+            <div class="fq-item__inner">
+              <p>The daily rate covers the vehicle, basic insurance, 24/7 roadside assistance and free pick-up and drop-off. Fuel, tolls, fines and optional extras are charged separately.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="fq-item">
+          <h3 class="fq-item__q">
+            <button class="fq-item__btn" type="button" id="fq-q2" aria-expanded="false" aria-controls="fq-a2">
+              <span>What is the rental's mileage plan?</span>
+              <svg class="fq-item__chev" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+          </h3>
+          <div class="fq-item__panel" id="fq-a2" role="region" aria-labelledby="fq-q2">
+            <div class="fq-item__inner">
+              <p>Every rental includes a generous daily mileage allowance. Need to go further? Choose an unlimited-mileage plan at checkout, or ask our team for a custom plan for long trips.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="fq-item">
+          <h3 class="fq-item__q">
+            <button class="fq-item__btn" type="button" id="fq-q3" aria-expanded="false" aria-controls="fq-a3">
+              <span>What are your extra insurance options?</span>
+              <svg class="fq-item__chev" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+          </h3>
+          <div class="fq-item__panel" id="fq-a3" role="region" aria-labelledby="fq-q3">
+            <div class="fq-item__inner">
+              <p>Choose standard cover, or full cover with zero excess, plus optional add-ons such as personal accident and extra-driver cover. Our team will help you pick what fits your trip.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="fq-item">
+          <h3 class="fq-item__q">
+            <button class="fq-item__btn" type="button" id="fq-q4" aria-expanded="false" aria-controls="fq-a4">
+              <span>Do I need to return the rental with a full tank?</span>
+              <svg class="fq-item__chev" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+          </h3>
+          <div class="fq-item__panel" id="fq-a4" role="region" aria-labelledby="fq-q4">
+            <div class="fq-item__inner">
+              <p>Please return the car with the same fuel level it had at pick-up. If it comes back with less fuel, we will refuel it and charge the fuel plus a small service fee.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+<script>
+    (function () {
+  'use strict';
+
+  var section = document.querySelector('.fq');
+  if (!section) return;
+
+  var items = Array.prototype.slice.call(section.querySelectorAll('.fq-item'));
+  var allowMultiple = section.hasAttribute('data-fq-multiple'); // optional: several open at once
+
+  function setOpen(item, open) {
+    item.classList.toggle('is-open', open);
+    item.querySelector('.fq-item__btn').setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  items.forEach(function (item) {
+    // sync the initial state with the HTML
+    setOpen(item, item.classList.contains('is-open'));
+
+    item.querySelector('.fq-item__btn').addEventListener('click', function () {
+      var willOpen = !item.classList.contains('is-open');
+
+      if (!allowMultiple) {
+        items.forEach(function (other) { if (other !== item) setOpen(other, false); });
+      }
+      setOpen(item, willOpen);
+    });
+  });
+})();
+</script>
+<!-- ================= SECTION START ================= -->
+<section class="tm" id="testimonials" aria-labelledby="tmTitle">
+
+  <!-- BACKGROUND IMAGE: apni image ka path yahan daalo (scroll par sticky rehti hai) -->
+  <div class="tm__bg" aria-hidden="true">
+    <img src="testbg.webp" alt="">
+  </div>
+
+  <!-- star icon (sirf is section ke liye) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="tm-star" viewBox="0 0 24 24"><polygon fill="currentColor" points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></symbol>
+  </svg>
+
+  <div class="tm__inner">
+
+    <header class="tm__head">
+      <p class="tm__eyebrow"><span>Client Testimonials</span></p>
+      <h2 class="tm__title" id="tmTitle">What Our Customers <em>Say</em></h2>
+      <p class="tm__lead">Real experiences. Genuine feedback. See what our customers have to say about their car rental journey with us.</p>
+    </header>
+
+    <div class="tm__grid">
+
+      <!-- Card 1 -->
+      <figure class="tm-card" style="--tm-photo-pos: center top;">
+        <div class="tm-card__photo">
+          <!-- apni customer image ka path yahan -->
+          <img src="test1.jpg" alt="Stephanie Hutchkiss">
+        </div>
+        <div class="tm-card__body">
+          <div class="tm-card__top">
+            <span class="tm-card__quote" aria-hidden="true">&ldquo;</span>
+            <span class="tm-stars" role="img" aria-label="5 out of 5 stars">
+              <svg aria-hidden="true"><use href="#tm-star"/></svg><svg aria-hidden="true"><use href="#tm-star"/></svg><svg aria-hidden="true"><use href="#tm-star"/></svg><svg aria-hidden="true"><use href="#tm-star"/></svg><svg aria-hidden="true"><use href="#tm-star"/></svg>
+            </span>
+          </div>
+          <blockquote class="tm-card__text">
+            <p>Excellent Service! Car Rent Service! I have been using Rentaly for my car rental needs for over 5 years now and have never had any problems with their service. Their customer support is always responsive and helpful.</p>
+          </blockquote>
+          <figcaption class="tm-card__author">
+            <span class="tm-card__dash" aria-hidden="true"></span>
+            <span><span class="tm-card__name">Stephanie Hutchkiss</span><span class="tm-card__role">Happy Customer</span></span>
+          </figcaption>
+        </div>
+      </figure>
+
+      <!-- Card 2 (middle - bigger) -->
+      <figure class="tm-card tm-card--featured" style="--tm-photo-pos: center 20%;">
+        <div class="tm-card__photo">
+          <img src="test2.jpg" alt="Jovan Reels">
+        </div>
+        <div class="tm-card__body">
+          <div class="tm-card__top">
+            <span class="tm-card__quote" aria-hidden="true">&ldquo;</span>
+            <span class="tm-stars" role="img" aria-label="5 out of 5 stars">
+              <svg aria-hidden="true"><use href="#tm-star"/></svg><svg aria-hidden="true"><use href="#tm-star"/></svg><svg aria-hidden="true"><use href="#tm-star"/></svg><svg aria-hidden="true"><use href="#tm-star"/></svg><svg aria-hidden="true"><use href="#tm-star"/></svg>
+            </span>
+          </div>
+          <blockquote class="tm-card__text">
+            <p>We have been using Rentaly for our trips needs for several years now and have always been happy with their service. Their customer support is excellent, and they are always available to help with any issues we have. Their prices are also very competitive.</p>
+          </blockquote>
+          <figcaption class="tm-card__author">
+            <span class="tm-card__dash" aria-hidden="true"></span>
+            <span><span class="tm-card__name">Jovan Reels</span><span class="tm-card__role">Loyal Customer</span></span>
+          </figcaption>
+        </div>
+      </figure>
+
+      <!-- Card 3 -->
+      <figure class="tm-card" style="--tm-photo-pos: center top;">
+        <div class="tm-card__photo">
+          <img src="test3.jpg" alt="Kanesha Keyton">
+        </div>
+        <div class="tm-card__body">
+          <div class="tm-card__top">
+            <span class="tm-card__quote" aria-hidden="true">&ldquo;</span>
+            <span class="tm-stars" role="img" aria-label="5 out of 5 stars">
+              <svg aria-hidden="true"><use href="#tm-star"/></svg><svg aria-hidden="true"><use href="#tm-star"/></svg><svg aria-hidden="true"><use href="#tm-star"/></svg><svg aria-hidden="true"><use href="#tm-star"/></svg><svg aria-hidden="true"><use href="#tm-star"/></svg>
+            </span>
+          </div>
+          <blockquote class="tm-card__text">
+            <p>Endorsed by industry experts, Rentaly is the Car Rental solution you can trust. With years of experience in the field, we provide fast, reliable and secure Car Rental services.</p>
+          </blockquote>
+          <figcaption class="tm-card__author">
+            <span class="tm-card__dash" aria-hidden="true"></span>
+            <span><span class="tm-card__name">Kanesha Keyton</span><span class="tm-card__role">Verified Customer</span></span>
+          </figcaption>
+        </div>
+      </figure>
+
+    </div>
+  </div>
+</section>
+<section class="ceo" id="ceo">
+  <div class="container">
+    <div class="ceo__grid">
+
+      <!-- Left: photo -->
+      <div class="ceo__media">
+        <div class="ceo__frame">
+          <div class="ceo__photo">
+            <img src="ceoimg.webp" alt="CEO photo">
+          </div>
+        </div>
+        <span class="ceo__badge">CEO</span>
+      </div>
+
+      <!-- Right: text -->
+      <div class="ceo__content">
+        <h2 class="ceo__name">Shoain</h2>
+        <p class="ceo__role">Owner</p>
+        <p class="ceo__text">
+          This is a sample text. Insert your desired text here.
+          This is a sample text. This is a sample text.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+<footer class="site-footer">
+
+  <!-- Car image strip -->
+  <div class="gallery">
+
+    <div class="tile">
+      <img
+        src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=85"
+        alt="Car rental"
+        loading="lazy"
+      >
+      <span>Car rental</span>
+    </div>
+
+    <div class="tile">
+      <img
+        src="https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=1200&q=85"
+        alt="Luxury sports car"
+        loading="lazy"
+      >
+      <span>Luxury cars</span>
+    </div>
+
+    <div class="tile">
+      <img
+        src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1200&q=85"
+        alt="Car showroom"
+        loading="lazy"
+      >
+      <span>Buy a car</span>
+    </div>
+
+    <div class="tile">
+      <img
+        src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1200&q=85"
+        alt="Premium car"
+        loading="lazy"
+      >
+      <span>Premium rides</span>
+    </div>
+
+    <a class="tile handle" href="#" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="#1a1409"/>
+      </svg>
+      #yourhandle
+    </a>
+
+  </div>
+
+  <div class="band">
+    <h3>Let’s find your perfect ride.</h3>
+
+    <form onsubmit="return false">
+      <input
+        type="email"
+        placeholder="Your email"
+        aria-label="Email"
+      >
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <div class="main">
+
+    <div class="brand">
+      <div class="logo-box">LOGO HERE</div>
+
+      <p>
+        Rent a car by the day or buy your next one.
+        Economy to luxury, all in one place.
+      </p>
+
+      <p class="live">
+        Mon – Fri 08.00 – 18.00
+      </p>
+    </div>
+
+    <div class="col">
+      <h4>Cars</h4>
+      <ul>
+        <li><a href="#">Rent a car</a></li>
+        <li><a href="#">Buy a car</a></li>
+        <li><a href="#">Luxury cars</a></li>
+        <li><a href="#">Long-term rental</a></li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Bookings</a></li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <h4>Stay in Touch</h4>
+      <ul>
+        <li><a href="tel:+2083339296">+208 333 9296</a></li>
+        <li><a href="mailto:contact@rentaly.com">contact@rentaly.com</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Instagram</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="bottom">
+    <span>Copyright © 2026. All rights reserved.</span>
+
+    <nav>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+    </nav>
+  </div>
+
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+<script>
+  (function () {
+    // jin users ne "reduce motion" on kiya hai unke liye smooth scroll band
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var lenis = new Lenis({
+      duration: 1.2,        // zyada = zyada smooth/slow (1.0 - 1.6 try karo)
+      smoothWheel: true,
+      wheelMultiplier: 1,   // wheel ki speed
+      touchMultiplier: 1.5
+    });
+    window.lenis = lenis;
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // #anchor links par smooth scroll (header ke neeche rakhne ke liye offset)
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var id = a.getAttribute('href');
+        if (id.length < 2) return;
+        var target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        lenis.scrollTo(target, { offset: -80 });
+      });
+    });
+  })();
+</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+  <script src="fleet.js"></script>
+</body>
+</html>
