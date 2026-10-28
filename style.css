@@ -1865,20 +1865,7 @@ body {
   }
 }
 
-    /* =========================================================
-   TESTIMONIALS  (.tm)  -  standalone section
-   Black + Champagne Gold | Manrope (text) + Playfair Display (headings)
-
-   IMAGES:
-   - section background -> <img> inside .tm__bg (HTML me path badlo)
-   - customer photos    -> <img> inside each .tm-card__photo
-
-   KNOBS (neeche .tm ke andar):
-     --tm-bg-dim   : image par kala parda (0 = bilkul nahi, 1 = poora kala). Default .45
-     --tm-bg-pos   : background image ka focus point
-     --tm-bg-fit   : cover (screen bhar deta hai) ya contain (poori image, bina crop, kinaro par kala)
-     --tm-photo-pos: card photo ka focus point (center, center 30% ...)
-   ========================================================= */
+   
 
 .tm {
   --tm-black: var(--rt-black, #0a0a0a);
