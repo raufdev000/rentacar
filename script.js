@@ -319,3 +319,34 @@
     leaveObserver.observe(el);
   });
 })();
+
+  (function () {
+    // jin users ne "reduce motion" on kiya hai unke liye smooth scroll band
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var lenis = new Lenis({
+      duration: 1.2,        // zyada = zyada smooth/slow (1.0 - 1.6 try karo)
+      smoothWheel: true,
+      wheelMultiplier: 1,   // wheel ki speed
+      touchMultiplier: 1.5
+    });
+    window.lenis = lenis;
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // #anchor links par smooth scroll (header ke neeche rakhne ke liye offset)
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var id = a.getAttribute('href');
+        if (id.length < 2) return;
+        var target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        lenis.scrollTo(target, { offset: -80 });
+      });
+    });
+  })();

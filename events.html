@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* =========================================================
+   EVENTS & OCCASIONS + WHY CHOOSE US (.ev) - standalone section
+   Black + Champagne Gold | Manrope. Site ke --rt-* colors automatically use hote hain.
+
+   KNOBS (.ev ke andar):
+     --ev-bg-dim / --ev-why-dim : background images par kala parda (0 - 1)
+     --ev-car-scale / --ev-car-x / --ev-car-y : car ka size aur jagah
+     --ev-car-ratio : car box ka shape (2 / 1). Car neeche se kat rahi ho to 1.7 / 1, khali jagah ho to 2.3 / 1
+     --ev-car-pos   : car image ka kaun sa hissa dikhe (0% = upar se, 100% = neeche se)
+     --ev-skew : frames ki tirchhi (-12deg; 0deg = seedhe)
+   ========================================================= */
+.ev {
+  --ev-black: var(--rt-black, #0a0a0a);
+  --ev-gold: var(--rt-gold, #d8b97f);
+  --ev-gold-light: var(--rt-gold-light, #f0ddb5);
+  --ev-gold-deep: var(--rt-gold-deep, #b8965a);
+  --ev-gold-rgb: var(--rt-gold-rgb, 216, 185, 127);
+  --ev-light-rgb: var(--rt-light-rgb, 240, 221, 181);
+  --ev-ease: cubic-bezier(.22, 1, .36, 1);
+  --ev-gut: clamp(16px, 4vw, 48px);
+
+  /* knobs */
+  --ev-skew: -12deg;
+  --ev-bg-dim: .25;
+  --ev-why-dim: .35;
+  --ev-car-scale: 1;
+  --ev-car-x: 0%;
+  --ev-car-y: 0%;
+
+  background: var(--ev-black);
+  color: var(--ev-gold-light);
+  font-family: 'Manrope', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.ev *, .ev *::before, .ev *::after { box-sizing: border-box; }
+.ev svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+/* :where = Bootstrap ke a/h/p/ul ko beat karta hai, hamari class rules ko nahi */
+:where(.ev) a { color: inherit; text-decoration: none; }
+:where(.ev) h2, :where(.ev) h3, :where(.ev) h4, :where(.ev) p, :where(.ev) figure { margin: 0; }
+:where(.ev) ul { margin: 0; padding: 0; list-style: none; }
+
+.ev-wrap { width: min(100% - 2 * var(--ev-gut), 1320px); margin-inline: auto; }
+
+/* gold gradient text */
+.ev em {
+  padding-right: .1em;
+  font-style: normal;
+  background: linear-gradient(100deg, var(--ev-gold-deep) 0%, var(--ev-gold) 50%, var(--ev-gold-light) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* back images */
+.ev__bg, .ev-why__bg { position: absolute; inset: 0; z-index: -3; overflow: hidden; pointer-events: none; }
+.ev__bg img, .ev-why__bg img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- eyebrow ---------- */
+.ev-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1.6vw, 20px);
+  font-size: clamp(.72rem, 1vw, .9rem);
+  font-weight: 600;
+  letter-spacing: .38em;
+  text-transform: uppercase;
+  color: var(--ev-gold-light);
+}
+.ev-eyebrow--line::before { content: ""; flex: 0 0 clamp(40px, 5vw, 78px); height: 1px; background: linear-gradient(90deg, var(--ev-gold-deep), var(--ev-gold)); }
+.ev-eyebrow--both { justify-content: center; }
+.ev-eyebrow--both::before, .ev-eyebrow--both::after { content: ""; flex: 0 1 clamp(40px, 12vw, 116px); height: 1px; }
+.ev-eyebrow--both::before { background: linear-gradient(90deg, transparent, var(--ev-gold)); }
+.ev-eyebrow--both::after  { background: linear-gradient(270deg, transparent, var(--ev-gold)); }
+
+/* ---------- design decorations ---------- */
+.ev-streak {
+  position: absolute;
+  z-index: -1;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(var(--ev-gold-rgb), .9), transparent);
+  box-shadow: 0 0 14px rgba(var(--ev-gold-rgb), .5);
+  transform-origin: left center;
+  pointer-events: none;
+}
+.ev-streak--tl { left: -12px; top: clamp(120px, 12vw, 190px); width: clamp(160px, 15vw, 260px); transform: rotate(-52deg); }
+.ev-streak--r  { left: calc(100% - clamp(120px, 11vw, 190px)); bottom: 0; width: clamp(200px, 20vw, 340px); transform: rotate(-52deg); opacity: .8; }
+
+.ev-dots {
+  position: absolute;
+  z-index: 0;
+  width: 88px;
+  height: 44px;
+  background-image: radial-gradient(circle, var(--ev-gold) 1.6px, transparent 1.9px);
+  background-size: 15px 15px;
+  opacity: .5;
+  pointer-events: none;
+}
+.ev-dots--tr { top: 24px; right: clamp(14px, 3vw, 40px); }
+.ev-dots--bl { bottom: 26px; left: clamp(14px, 3vw, 40px); }
+
+/* =========================================================
+   1. HERO
+   ========================================================= */
+.ev-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(40px, 6vw, 80px) 0 clamp(28px, 4vw, 0px);
+  background: var(--ev-black);
+}
+.ev-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(8, 8, 8, .88) 0%, rgba(8, 8, 8, .55) 45%, rgba(8, 8, 8, .15) 100%),
+    radial-gradient(ellipse 50% 60% at 78% 72%, rgba(var(--ev-gold-rgb), .16), transparent 70%),
+    rgba(8, 8, 8, var(--ev-bg-dim));
+}
+.ev-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(26px, 5vw, 44px);
+}
+
+.ev-hero__title {
+  margin: clamp(14px, 2vw, 22px) 0 clamp(16px, 2vw, 24px);
+  font-size: clamp(3rem, 12vw, 6.2rem);
+  font-weight: 800;
+  font-style: italic;
+  line-height: .96;
+  letter-spacing: -.035em;
+  color: var(--ev-gold-light);
+}
+.ev-hero__title em { display: block; width: fit-content; font-style: italic; }
+.ev-hero__text {
+  max-width: 430px;
+  margin-bottom: clamp(20px, 2.6vw, 30px);
+  font-size: clamp(.98rem, 1.6vw, 1.2rem);
+  line-height: 1.6;
+  color: rgba(var(--ev-light-rgb), .92);
+}
+
+.ev-occ {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, auto));
+  justify-content: start;
+  gap: 14px clamp(20px, 4vw, 56px);
+  margin-bottom: clamp(24px, 3vw, 36px);
+}
+.ev-occ li { display: flex; align-items: center; gap: 14px; font-size: clamp(.9rem, 1.2vw, 1.02rem); font-weight: 500; }
+.ev-occ__ic {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: clamp(46px, 4vw, 56px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(var(--ev-gold-rgb), .28);
+  border-radius: 14px;
+  color: var(--ev-gold);
+  background: linear-gradient(180deg, rgba(var(--ev-gold-rgb), .1), rgba(var(--ev-gold-rgb), .03));
+}
+.ev-occ__ic svg { width: 48%; height: 48%; }
+
+.ev-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  height: 54px;
+  padding: 0 28px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--ev-gold-light) 0%, var(--ev-gold) 48%, var(--ev-gold-deep) 100%);
+  color: var(--ev-black);
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 10px 28px rgba(var(--ev-gold-rgb), .28);
+  transition: transform .3s ease, box-shadow .3s ease, filter .3s ease;
+}
+.ev-btn svg { stroke-width: 2.2; transition: transform .3s ease; }
+.ev-btn:hover { transform: translateY(-2px); filter: brightness(1.06); box-shadow: 0 16px 36px rgba(var(--ev-gold-rgb), .4); }
+.ev-btn:hover svg { transform: translateX(4px); }
+.ev-btn:focus-visible { outline: 2px solid var(--ev-gold-light); outline-offset: 3px; }
+
+/* ---------- visual: frames + car ---------- */
+.ev-hero__visual {
+  position: relative;
+  width: 100%;
+  max-width: 780px;
+  margin-inline: auto;
+  aspect-ratio: 1.32 / 1;
+}
+
+.ev-frame {
+  position: absolute;
+  z-index: 1;
+  padding: 2px;
+  border-radius: 18px;
+  background: linear-gradient(150deg, var(--ev-gold-light), var(--ev-gold-deep) 40%, rgba(var(--ev-gold-rgb), .25) 70%, var(--ev-gold));
+  box-shadow: 0 0 36px rgba(var(--ev-gold-rgb), .22), 0 18px 40px rgba(0, 0, 0, .5);
+  transform: skewX(var(--ev-skew));
+}
+.ev-frame__in {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #141414;
+}
+.ev-frame__in img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: skewX(calc(var(--ev-skew) * -1)) scale(1.3);   /* seedhi image, frame tirchha */
+}
+.ev-frame__in::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(8, 8, 8, .55));
+  pointer-events: none;
+}
+.ev-frame--l { left: 4%;  top: 10%; width: 31%; height: 54%; }
+.ev-frame--c { left: 28%; top: 1%;  width: 37%; height: 60%; z-index: 2; }
+.ev-frame--r { left: 58%; top: 10%; width: 28%; height: 54%; }
+
+/* floor light streak + reflection */
+.ev-hero__floor {
+  position: absolute;
+  left: -6%;
+  right: -12%;
+  bottom: 12%;
+  z-index: 1;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--ev-gold-light) 30%, var(--ev-gold) 72%, transparent);
+  box-shadow: 0 0 30px 6px rgba(var(--ev-gold-rgb), .5);
+  pointer-events: none;
+}
+.ev-hero__visual::after {
+  content: "";
+  position: absolute;
+  left: 4%;
+  right: 0;
+  bottom: -2%;
+  z-index: 1;
+  height: 22%;
+  background: radial-gradient(ellipse at center, rgba(var(--ev-gold-rgb), .35), transparent 70%);
+  filter: blur(16px);
+  pointer-events: none;
+}
+
+.ev-hero__car {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 3;
+  width: 80%;
+}
+.ev-hero__car img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform: translate(var(--ev-car-x), var(--ev-car-y)) scale(var(--ev-car-scale));
+  transform-origin: center bottom;
+}
+
+/* image lagne tak placeholder hints (image lagte hi khud hat jate hain) */
+.ev-frame__in:not(:has(img)) { display: grid; place-items: center; }
+.ev-frame__in:not(:has(img))::before {
+  content: "Image";
+  font-size: .75rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(var(--ev-gold-rgb), .65);
+  transform: skewX(calc(var(--ev-skew) * -1));
+}
+.ev-hero__car:not(:has(img)) {
+  display: grid;
+  place-items: center;
+  height: 46%;
+  border: 1.5px dashed rgba(var(--ev-gold-rgb), .3);
+  border-radius: 16px;
+}
+.ev-hero__car:not(:has(img))::before {
+  content: "Car image (front) yahan lagao";
+  font-size: .75rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(var(--ev-gold-rgb), .65);
+}
+
+/* =========================================================
+   2. WHY CHOOSE US
+   ========================================================= */
+.ev-why {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(48px, 6vw, 80px) 0 clamp(40px, 5vw, 70px);
+  border-top: 1px solid rgba(var(--ev-gold-rgb), .28);
+  background: var(--ev-black);
+}
+.ev-why::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(8, 8, 8, .75), rgba(8, 8, 8, .3) 45%, rgba(8, 8, 8, .7)),
+    rgba(8, 8, 8, var(--ev-why-dim));
+}
+.ev-why__head { text-align: center; }
+.ev-why__title {
+  margin: clamp(12px, 1.6vw, 18px) 0 10px;
+  font-size: clamp(1.9rem, 5.4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  color: var(--ev-gold-light);
+}
+.ev-why__lead { font-size: clamp(.92rem, 1.5vw, 1.1rem); color: rgba(var(--ev-light-rgb), .88); }
+
+.ev-feats {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 48px 22px;
+  margin-top: clamp(50px, 6vw, 66px);
+}
+.ev-feat {
+  position: relative;
+  padding: 46px 22px 28px;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(20, 20, 20, .72), rgba(8, 8, 8, .86));
+  border: 1px solid rgba(var(--ev-gold-rgb), .3);
+  border-radius: 20px;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition: transform .45s var(--ev-ease), border-color .3s ease, box-shadow .45s ease;
+}
+.ev-feat::after {
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--ev-gold), transparent);
+  filter: drop-shadow(0 0 8px rgba(var(--ev-gold-rgb), .8));
+  pointer-events: none;
+}
+.ev-feat:hover {
+  transform: translateY(-5px);
+  border-color: rgba(var(--ev-gold-rgb), .75);
+  box-shadow: 0 22px 46px rgba(0, 0, 0, .55), 0 0 32px rgba(var(--ev-gold-rgb), .16);
+}
+.ev-feat__ic {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 66px;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(var(--ev-gold-rgb), .75);
+  border-radius: 50%;
+  color: var(--ev-gold);
+  background: radial-gradient(circle at 50% 35%, rgba(var(--ev-gold-rgb), .22), rgba(10, 10, 10, .95) 70%);
+  box-shadow: 0 0 0 5px rgba(var(--ev-gold-rgb), .06), 0 0 24px rgba(var(--ev-gold-rgb), .3), inset 0 0 16px rgba(var(--ev-gold-rgb), .16);
+}
+.ev-feat__ic svg { width: 46%; height: 46%; }
+.ev-feat h4 { margin-bottom: 8px; font-size: clamp(1.02rem, 1.4vw, 1.18rem); font-weight: 700; color: var(--ev-gold-light); }
+.ev-feat p { max-width: 24ch; margin-inline: auto; font-size: clamp(.84rem, 1vw, .92rem); line-height: 1.55; color: rgba(var(--ev-light-rgb), .75); }
+
+/* =========================================================
+   RESPONSIVE
+   <600      1 column (text, then images), features 1 column
+   600-991   text, then images (centered), features 2x2
+   992+      text left | images right, features 4 in a row
+   ========================================================= */
+@media (max-width: 479.98px) {
+  .ev-btn { width: 100%; justify-content: center; }
+  .ev-occ { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px 12px; }
+  .ev-occ li { gap: 10px; font-size: .86rem; }
+  .ev-hero__visual { aspect-ratio: 1.12 / 1; }
+  .ev-dots { display: none; }
+}
+
+@media (min-width: 600px) {
+  .ev-feats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 992px) {
+  .ev-hero { padding-bottom: 0; }
+  .ev-hero__grid { grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr); gap: clamp(10px, 2vw, 30px); }
+  .ev-hero__copy { padding-bottom: clamp(30px, 4vw, 56px); }
+  .ev-hero__visual {
+    max-width: none;
+    margin-right: calc(var(--ev-gut) * -.8);
+    margin-left: 0;
+    aspect-ratio: 932 / 562;
+  }
+  .ev-feats { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ev-btn, .ev-btn svg, .ev-feat { transition: none; }
+  .ev-btn:hover, .ev-feat:hover { transform: none; }
+}
+
+/* =========================================================
+   UPDATE: reference look (frames upar, car front me neeche, text left)
+   ========================================================= */
+.ev-hero__visual { aspect-ratio: 1.05 / 1; }
+
+/* 3 tirchhe frames */
+.ev-frame--l { left: 2%;  top: 12%; width: 30%; height: 48%; }
+.ev-frame--c { left: 27%; top: 0;   width: 38%; height: 58%; }
+.ev-frame--r { left: 58%; top: 10%; width: 30%; height: 48%; }
+.ev-hero__floor { bottom: 9%; }
+
+/* CAR: image ka transparent khali hissa trim hota hai, car hamesha neeche front me */
+.ev-hero__car {
+  left: -8%;
+  bottom: 0;
+  width: 108%;
+  aspect-ratio: var(--ev-car-ratio, 2 / 1);
+  overflow: hidden;
+  z-index: 3;
+}
+.ev-hero__car img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center var(--ev-car-pos, 0%);
+  transform: translate(var(--ev-car-x), var(--ev-car-y)) scale(var(--ev-car-scale));
+}
+
+/* Why choose us: italic title + Book Now button + corner lines */
+.ev-why__title { font-style: italic; }
+.ev-why__title em { font-style: italic; }
+.ev-br { display: none; }
+.ev-why__cta { display: flex; justify-content: center; margin-top: clamp(26px, 4vw, 44px); }
+.ev-why .ev-streak--tl { top: 0; left: -12px; width: clamp(120px, 12vw, 200px); }
+.ev-why .ev-streak--r  { left: auto; right: -40px; bottom: 30px; width: clamp(160px, 16vw, 260px); }
+
+/* ---------- Desktop ---------- */
+@media (min-width: 992px) {
+  .ev-hero__visual { aspect-ratio: 1.2 / 1; }
+  .ev-hero__car { left: -4%; width: 104%; }
+}
+
+/* ---------- Tablet + mobile: text left, frames + car right ---------- */
+@media (max-width: 991.98px) {
+  .ev-hero__grid {
+    grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+    gap: 6px;
+    align-items: center;
+  }
+  .ev-hero__copy { position: relative; z-index: 4; }
+  .ev-hero__visual {
+    max-width: none;
+    margin: 0 calc(var(--ev-gut) * -1) 0 0;   /* right edge tak */
+  }
+  .ev-hero__title { font-size: clamp(2rem, 6.4vw, 4rem); }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 599.98px) {
+  .ev-hero { padding: 26px 0 0; }
+  .ev-eyebrow { font-size: .6rem; letter-spacing: .3em; gap: 10px; }
+  .ev-eyebrow--line::before { flex-basis: 26px; }
+
+  .ev-hero__title { font-size: clamp(1.7rem, 8.6vw, 2.6rem); margin: 10px 0 12px; }
+  .ev-hero__text { max-width: none; margin-bottom: 14px; font-size: .74rem; line-height: 1.5; }
+  .ev-occ { display: none; }
+
+  .ev-btn { width: auto; height: 38px; padding: 0 14px; gap: 8px; font-size: .72rem; }
+  .ev-btn svg { width: 14px; height: 14px; }
+
+  .ev-hero__visual { aspect-ratio: 1.02 / 1; }
+  .ev-hero__car { left: -14%; width: 114%; }
+  .ev-dots { display: none; }
+
+  /* Why choose us */
+  .ev-br { display: inline; }
+  .ev-why { padding: 40px 0 44px; }
+  .ev-why__title { font-size: clamp(1.8rem, 8vw, 2.4rem); }
+  .ev-feats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
+  .ev-feat {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 12px;
+    text-align: left;
+    border-radius: 16px;
+  }
+  .ev-feat::after { display: none; }
+  .ev-feat__ic { position: static; transform: none; width: 42px; flex: 0 0 auto; }
+  .ev-feat h4 { margin: 0; font-size: .8rem; line-height: 1.3; }
+  .ev-feat p { display: none; }
+}
+/* ===== FIX: car chhoti, frames upar saaf, hero chhota ===== */
+
+/* frames thore chhote taake car unhe na dhake (sab screens) */
+.ev-frame--l { top: 10%; height: 44%; }
+.ev-frame--c { top: 0;   height: 52%; }
+.ev-frame--r { top: 8%;  height: 44%; }
+.ev-hero__floor { bottom: 7%; }
+
+/* Desktop */
+@media (min-width: 992px) {
+  .ev-hero__title { font-size: clamp(2.8rem, 5.2vw, 4.6rem); }   /* title chhota */
+  .ev-hero__visual {
+    max-width: 660px;                 /* poora visual chhota */
+    margin-left: auto;
+    margin-right: 0;
+    aspect-ratio: 1.2 / 1;
+  }
+  .ev-hero__car { left: 4%; width: 86%; }   /* car chhoti, frames ke neeche */
+}
+
+/* Mobile / tablet */
+@media (max-width: 991.98px) {
+  .ev-hero__car { left: -4%; width: 100%; }
+}
+/* ===== car ko neeche se upar uthao ===== */
+.ev {
+  --ev-car-lift: 6%;   /* bada number = car aur upar. 0% = pehle jaisi neeche */
+}
+.ev-hero__car {
+  bottom: var(--ev-car-lift);
+}
+    </style>
+</head>
+<body>
+    <section class="ev" id="events" aria-labelledby="evTitle">
+
+  <!-- icons (sirf is section ke liye) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="ev-ring" viewBox="0 0 24 24"><circle cx="8.5" cy="15.5" r="5"/><circle cx="15.5" cy="15.5" r="5"/><polygon points="12 2 14.5 4.5 12 8 9.5 4.5"/></symbol>
+      <symbol id="ev-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></symbol>
+      <symbol id="ev-bag" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></symbol>
+      <symbol id="ev-mountain" viewBox="0 0 24 24"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/><path d="M18 2v3M16.5 3.5h3"/></symbol>
+      <symbol id="ev-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+      <symbol id="ev-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+      <symbol id="ev-tag" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></symbol>
+      <symbol id="ev-headset" viewBox="0 0 24 24"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z"/><path d="M21 16v2a4 4 0 0 1-4 4h-5"/></symbol>
+      <symbol id="ev-car" viewBox="0 0 24 24"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8"/><path d="M7 14h.01"/><path d="M17 14h.01"/><rect width="18" height="8" x="3" y="10" rx="2"/><path d="M5 18v2"/><path d="M19 18v2"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- ===================== 1. EVENTS & OCCASIONS (hero) ===================== -->
+  <div class="ev-hero">
+
+    <!-- BACK IMAGE (pahadon wali dark background): apni image ka path -->
+    <div class="ev__bg" aria-hidden="true">
+      <img src="herobg1.webp" alt="">
+    </div>
+
+    <!-- design ki lines / dots -->
+    <i class="ev-streak ev-streak--tl" aria-hidden="true"></i>
+    <i class="ev-streak ev-streak--r" aria-hidden="true"></i>
+    <i class="ev-dots ev-dots--tr" aria-hidden="true"></i>
+
+    <div class="ev-wrap ev-hero__grid">
+
+      <!-- left: text -->
+      <div class="ev-hero__copy">
+        <p class="ev-eyebrow ev-eyebrow--line">Rent a Car</p>
+
+        <h2 class="ev-hero__title" id="evTitle">Events &amp; <em>Occasions</em></h2>
+
+        <p class="ev-hero__text">Make your special moments even better with our premium car rental service.</p>
+
+        <ul class="ev-occ">
+          <li><span class="ev-occ__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ev-ring"/></svg></span>Weddings</li>
+          <li><span class="ev-occ__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ev-cal"/></svg></span>Corporate Events</li>
+          <li><span class="ev-occ__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ev-bag"/></svg></span>Business Trips</li>
+          <li><span class="ev-occ__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ev-mountain"/></svg></span>Northern Tours</li>
+        </ul>
+
+        <a class="ev-btn" href="#booking">Book for Your Event <svg width="18" height="18" aria-hidden="true"><use href="#ev-arrow"/></svg></a>
+      </div>
+
+      <!-- right: 3 tirchhe frames + car -->
+      <div class="ev-hero__visual">
+
+        <!-- tirchhe frames ki images (wedding / pahadi sadak / stage event) -->
+        <figure class="ev-frame ev-frame--l">
+          <div class="ev-frame__in"><img src="images/events-wedding.jpg" alt="Wedding decor"></div>
+        </figure>
+        <figure class="ev-frame ev-frame--c">
+          <div class="ev-frame__in"><img src="images/events-north.jpg" alt="Northern mountain road"></div>
+        </figure>
+        <figure class="ev-frame ev-frame--r">
+          <div class="ev-frame__in"><img src="images/events-stage.jpg" alt="Corporate event stage"></div>
+        </figure>
+
+        <i class="ev-hero__floor" aria-hidden="true"></i>
+
+        <!-- FRONT IMAGE: car (transparent PNG/WebP best) -->
+        <div class="ev-hero__car">
+          <img src="image-removebg-preview (4).png" alt="Premium rental car">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================== 2. WHY CHOOSE US ===================== -->
+  <div class="ev-why">
+
+    <!-- BACK IMAGE (pahad + sadak): apni image ka path -->
+    <div class="ev-why__bg" aria-hidden="true">
+      <img src="images/events-why-bg.jpg" alt="">
+    </div>
+    <i class="ev-dots ev-dots--bl" aria-hidden="true"></i>
+    <i class="ev-streak ev-streak--tl" aria-hidden="true"></i>
+    <i class="ev-streak ev-streak--r" aria-hidden="true"></i>
+
+    <div class="ev-wrap">
+      <div class="ev-why__head">
+        <p class="ev-eyebrow ev-eyebrow--both">Why Choose Us</p>
+        <h3 class="ev-why__title">Your Trusted<br class="ev-br"> <em>Car Rental</em> Partner</h3>
+        <p class="ev-why__lead">We go the extra mile to give you the best rental experience in Pakistan.</p>
+      </div>
+
+      <ul class="ev-feats">
+        <li class="ev-feat">
+          <span class="ev-feat__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ev-shield"/></svg></span>
+          <h4>Safe &amp; Secure Rides</h4>
+          <p>Travel with confidence and peace of mind.</p>
+        </li>
+        <li class="ev-feat">
+          <span class="ev-feat__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ev-tag"/></svg></span>
+          <h4>Affordable Rates</h4>
+          <p>Premium service at the best prices.</p>
+        </li>
+        <li class="ev-feat">
+          <span class="ev-feat__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ev-headset"/></svg></span>
+          <h4>24/7 Support</h4>
+          <p>Always here to assist you, anytime.</p>
+        </li>
+        <li class="ev-feat">
+          <span class="ev-feat__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ev-car"/></svg></span>
+          <h4>Wide Range of Cars</h4>
+          <p>From economy to luxury, we've got you covered.</p>
+        </li>
+      </ul>
+
+      <div class="ev-why__cta">
+        <a class="ev-btn" href="#booking">Book Now <svg width="18" height="18" aria-hidden="true"><use href="#ev-arrow"/></svg></a>
+      </div>
+    </div>
+  </div>
+
+</section>
+</body>
+</html>

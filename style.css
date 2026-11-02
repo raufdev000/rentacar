@@ -338,8 +338,8 @@ body {
   padding: 5px 5px 5px 30px;
   background: linear-gradient(135deg, var(--rt-gold-light) 0%, var(--rt-gold) 48%, var(--rt-gold-deep) 100%);
   color: var(--rt-black);
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 800;
   text-decoration: none;
   white-space: nowrap;
   border-radius: 999px;
@@ -352,8 +352,8 @@ body {
 .rt-btn-contact__icon {
   display: grid;
   place-items: center;
-  width: 42px;
-  height: 42px;
+  width: 34px;
+  height: 34px;
   background: var(--rt-black);
   color: var(--rt-gold);
   font-size: 18px;
