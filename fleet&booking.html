@@ -1238,42 +1238,145 @@
 </style>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+
 <script>
 (function () {
   'use strict';
 
   /* ===================== SETTINGS ===================== */
   var CONFIG = {
-    imgDir: 'images/miles/',     // car photos ka folder
-    imgExt: '.jpg',
-    priceSuffix: '',             // khali = "Rs. 2,50,000".  Per day dikhana ho to ' / day'
-    bookingSelector: '#booking'  // Book Now dabane par yahan scroll hoga
+    priceSuffix: '',
+    bookingSelector: '#booking'
   };
 
-  /* ===================== CARS (yahan edit karo) =====================
-     img = photo ka naam (images/miles/<img>.jpg).  cat = chhoti category line. */
+  /* ===================== CARS + IMAGES ===================== */
   var CARS = [
-    { name: 'BMW i8',                    cat: 'Sports Hybrid',     rent: '2,50,000', img: 'bmw-i8' },
-    { name: 'LX570',                     cat: 'Luxury SUV',        rent: '1,00,000', img: 'lx570' },
-    { name: 'Old Vintage',               cat: 'Classic',           rent: '50,000',   img: 'old-vintage' },
-    { name: 'Hyundai Tucson',            cat: 'SUV',               rent: '12,000',   img: 'hyundai-tucson' },
-    { name: 'Toyota Prado',              cat: 'SUV 4x4',           rent: '16,000',   img: 'toyota-prado' },
-    { name: 'Revo GR',                   cat: 'Pickup 4x4',        rent: '15,000',   img: 'revo-gr' },
-    { name: 'Vintage',                   cat: 'Classic',           rent: '50,000',   img: 'vintage' },
-    { name: 'Coster',                    cat: 'Bus & Van',         rent: '22,000',   img: 'coster' },
-    { name: 'Mini Cooper',               cat: 'Hatchback',         rent: '20,000',   img: 'mini-cooper' },
-    { name: 'V8',                        cat: '4x4 SUV',           rent: '25,000',   img: 'v8' },
-    { name: 'Mercedes C200 Convertible', cat: 'Convertible',       rent: '1,10,000', img: 'mercedes-c200-convertible' },
-    { name: 'Range Rover',               cat: 'Luxury SUV',        rent: '1,00,000', img: 'range-rover' },
-    { name: 'Mercedes G Wagon',          cat: 'Luxury SUV',        rent: '1,10,000', img: 'mercedes-g-wagon' },
-    { name: 'Honda BR-V',                cat: 'Family SUV',        rent: '8,000',    img: 'honda-brv' },
-    { name: 'Hiroof',                    cat: 'Van',               rent: '15,000',   img: 'hiroof' },
-    { name: 'Mercedes S Class Maybach',  cat: 'Chauffeur Luxury',  rent: '1,10,000', img: 'mercedes-s-class-maybach' },
-    { name: 'Bentley',                   cat: 'Ultimate Luxury',   rent: '2,50,000', img: 'bentley' },
-    { name: 'Honda Civic',               cat: 'Sedan',             rent: '8,000',    img: 'honda-civic' },
-    { name: 'Honda Civic (New Model)',   cat: 'Sedan',             rent: '12,000',   img: 'honda-civic-new-model' },
-    { name: 'BMW 7 Series',              cat: 'Executive Luxury',  rent: '1,50,000', img: 'bmw-7-series' },
-    { name: 'Limo',                      cat: 'Limousine',         rent: '1,80,000', img: 'limo' }
+    {
+      name: 'BMW i8',
+      cat: 'Sports Hybrid',
+      rent: '2,50,000',
+      img: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1000&q=85'
+    },
+    {
+      name: 'LX570',
+      cat: 'Luxury SUV',
+      rent: '1,00,000',
+      img: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1000&q=85'
+    },
+    {
+      name: 'Old Vintage',
+      cat: 'Classic',
+      rent: '50,000',
+      img: 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1000&q=85'
+    },
+    {
+      name: 'Hyundai Tucson',
+      cat: 'SUV',
+      rent: '12,000',
+      img: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1000&q=85'
+    },
+    {
+      name: 'Toyota Prado',
+      cat: 'SUV 4x4',
+      rent: '16,000',
+      img: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1000&q=85'
+    },
+    {
+      name: 'Revo GR',
+      cat: 'Pickup 4x4',
+      rent: '15,000',
+      img: 'https://images.unsplash.com/photo-1551830820-330a71b99659?auto=format&fit=crop&w=1000&q=85'
+    },
+    {
+      name: 'Vintage',
+      cat: 'Classic',
+      rent: '50,000',
+      img: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1000&q=85'
+    },
+    {
+      name: 'Coster',
+      cat: 'Bus & Van',
+      rent: '22,000',
+      img: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1000&q=85'
+    },
+    {
+      name: 'Mini Cooper',
+      cat: 'Hatchback',
+      rent: '20,000',
+      img: 'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?auto=format&fit=crop&w=1000&q=85'
+    },
+    {
+      name: 'V8',
+      cat: '4x4 SUV',
+      rent: '25,000',
+      img: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1000&q=85'
+    },
+    {
+      name: 'Mercedes C200 Convertible',
+      cat: 'Convertible',
+      rent: '1,10,000',
+      img: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1000&q=85'
+    },
+    {
+      name: 'Range Rover',
+      cat: 'Luxury SUV',
+      rent: '1,00,000',
+      img: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=1000&q=85'
+    },
+    {
+      name: 'Mercedes G Wagon',
+      cat: 'Luxury SUV',
+      rent: '1,10,000',
+      img: 'https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&w=1000&q=85'
+    },
+    {
+      name: 'Honda BR-V',
+      cat: 'Family SUV',
+      rent: '8,000',
+      img: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1000&q=85'
+    },
+    {
+      name: 'Hiroof',
+      cat: 'Van',
+      rent: '15,000',
+      img: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1000&q=85'
+    },
+    {
+      name: 'Mercedes S Class Maybach',
+      cat: 'Chauffeur Luxury',
+      rent: '1,10,000',
+      img: 'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1000&q=85'
+    },
+    {
+      name: 'Bentley',
+      cat: 'Ultimate Luxury',
+      rent: '2,50,000',
+      img: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1000&q=85'
+    },
+    {
+      name: 'Honda Civic',
+      cat: 'Sedan',
+      rent: '8,000',
+      img: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1000&q=85'
+    },
+    {
+      name: 'Honda Civic (New Model)',
+      cat: 'Sedan',
+      rent: '12,000',
+      img: 'https://images.unsplash.com/photo-1606611013016-969c19ba27bb?auto=format&fit=crop&w=1000&q=85'
+    },
+    {
+      name: 'BMW 7 Series',
+      cat: 'Executive Luxury',
+      rent: '1,50,000',
+      img: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1000&q=85'
+    },
+    {
+      name: 'Limo',
+      cat: 'Limousine',
+      rent: '1,80,000',
+      img: 'https://images.unsplash.com/photo-1566024164372-0281f1133aa6?auto=format&fit=crop&w=1000&q=85'
+    }
   ];
 
   /* ===================== SETUP ===================== */
@@ -1281,41 +1384,66 @@
   if (!root) return;
 
   var grid = root.querySelector('.mlc__grid');
+  if (!grid) return;
+
   var select = document.querySelector('.ml-book select[name="car"]');
 
   function esc(s) {
-    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
   }
 
+  /* ===================== CARD HTML ===================== */
   function cardHTML(car) {
-    var src = CONFIG.imgDir + car.img + CONFIG.imgExt;
-    return '' +
-      '<article class="mlc-car">' +
-        '<div class="mlc-car__media">' +
-          '<img src="' + esc(src) + '" alt="' + esc(car.name) + '" loading="lazy">' +
-          '<a class="mlc-car__book" href="' + esc(CONFIG.bookingSelector) + '" data-car="' + esc(car.name) + '">Book Now ' +
-            '<svg width="13" height="13" aria-hidden="true"><use href="#ml-arrow"/></svg></a>' +
-        '</div>' +
-        '<div class="mlc-car__body">' +
-          '<span class="mlc-car__cat">' + esc(car.cat) + '</span>' +
-          '<h4 class="mlc-car__name">' + esc(car.name) + '</h4>' +
-          '<div class="mlc-car__rent"><span>Rent</span><strong>Rs. ' + esc(car.rent) + esc(CONFIG.priceSuffix) + '</strong></div>' +
-        '</div>' +
-      '</article>';
+    return ''
+      + '<article class="mlc-car">'
+      +   '<div class="mlc-car__media">'
+      +     '<img src="' + esc(car.img) + '"'
+      +     ' alt="' + esc(car.name) + '"'
+      +     ' loading="lazy"'
+      +     ' decoding="async">'
+      +     '<a class="mlc-car__book"'
+      +     ' href="' + esc(CONFIG.bookingSelector) + '"'
+      +     ' data-car="' + esc(car.name) + '">'
+      +       'Book Now'
+      +       '<svg width="13" height="13" aria-hidden="true">'
+      +         '<use href="#ml-arrow"/>'
+      +       '</svg>'
+      +     '</a>'
+      +   '</div>'
+      +   '<div class="mlc-car__body">'
+      +     '<span class="mlc-car__cat">' + esc(car.cat) + '</span>'
+      +     '<h4 class="mlc-car__name">' + esc(car.name) + '</h4>'
+      +     '<div class="mlc-car__rent">'
+      +       '<span>Rent</span>'
+      +       '<strong>Rs. ' + esc(car.rent)
+      +       esc(CONFIG.priceSuffix) + '</strong>'
+      +     '</div>'
+      +   '</div>'
+      + '</article>';
   }
 
-  /* ---- booking form ke "Select Car" dropdown me bhi yehi 21 cars ---- */
+  /* ===================== DROPDOWN ===================== */
   if (select) {
-    while (select.options.length > 1) select.remove(1);   // placeholder rehne do
+    while (select.options.length > 1) {
+      select.remove(1);
+    }
+
     CARS.forEach(function (car) {
-      var o = document.createElement('option');
-      o.value = car.name;
-      o.textContent = car.name;
-      select.appendChild(o);
+      var option = document.createElement('option');
+      option.value = car.name;
+      option.textContent = car.name;
+      select.appendChild(option);
     });
   }
 
-  /* ---- cards banao ---- */
+  /* ===================== RENDER CARDS ===================== */
+  grid.innerHTML = '';
+
   CARS.forEach(function (car) {
     var li = document.createElement('li');
     li.className = 'mlc__item';
@@ -1323,32 +1451,60 @@
     grid.appendChild(li);
   });
 
-  /* ---- missing images chhup jayein (alt text na dikhe) ---- */
+  /* ===================== BROKEN IMAGE HANDLING ===================== */
   root.addEventListener('error', function (e) {
-    if (e.target && e.target.tagName === 'IMG') e.target.classList.add('is-broken');
+    if (e.target && e.target.tagName === 'IMG') {
+      e.target.classList.add('is-broken');
+    }
   }, true);
 
-  /* ===================== BOOK NOW -> booking section ===================== */
+  /* ===================== BOOK NOW ===================== */
   grid.addEventListener('click', function (e) {
     var link = e.target.closest('.mlc-car__book');
     if (!link) return;
+
     e.preventDefault();
 
     var carName = link.getAttribute('data-car');
+
     if (select) {
-      select.value = carName;                                   // car pehle se select
-      select.dispatchEvent(new Event('change', { bubbles: true }));
+      select.value = carName;
+
+      select.dispatchEvent(
+        new Event('change', { bubbles: true })
+      );
+
       var field = select.closest('.ml-field');
+
       if (field) {
         field.classList.add('is-picked');
-        setTimeout(function () { field.classList.remove('is-picked'); }, 1800);
+
+        setTimeout(function () {
+          field.classList.remove('is-picked');
+        }, 1800);
       }
     }
+
     var target = document.querySelector(CONFIG.bookingSelector);
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    if (window.history && history.replaceState) history.replaceState(null, '', CONFIG.bookingSelector);
+
+    if (target) {
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+
+    if (window.history && window.history.replaceState) {
+      window.history.replaceState(
+        null,
+        '',
+        CONFIG.bookingSelector
+      );
+    }
   });
+
 })();
 </script>
+
 </body>
 </html>

@@ -2432,7 +2432,7 @@ body { margin: 0; background: #0a0a0a; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center bottom;   /* chehra upar rakhne ke liye */
+  object-position: center center;   /* chehra upar rakhne ke liye */
 }
 
 /* CEO badge (bottom right, photo ke upar overlap) */
